@@ -8,7 +8,7 @@ var util = require('util'),
 
 var DEFAULT_PORT = 8000;
 var indexFilenamePattern = /index\.html/;
-
+var docroot = './app/';
 
 function main(argv) {
   new HttpServer({
@@ -89,7 +89,7 @@ StaticServlet.MimeMap = {
 
 StaticServlet.prototype.handleRequest = function(req, res) {
   var self = this;
-  var path = ('./app/' + req.url.pathname).replace('//','/').replace(/%(..)/g, function(match, hex){
+  var path = (docroot + req.url.pathname).replace('//','/').replace(/%(..)/g, function(match, hex){
     return String.fromCharCode(parseInt(hex, 16));
   });
   var parts = path.split('/');
@@ -117,7 +117,7 @@ StaticServlet.prototype.sendError_ = function(req, res, error) {
 };
 
 StaticServlet.prototype.sendMissing_ = function(req, res, path) {
-  path = path.substring(1);
+  path = path.substring(docroot.length);
   res.writeHead(404, {
       'Content-Type': 'text/html'
   });
@@ -134,7 +134,7 @@ StaticServlet.prototype.sendMissing_ = function(req, res, path) {
 };
 
 StaticServlet.prototype.sendForbidden_ = function(req, res, path) {
-  path = path.substring(1);
+  path = path.substring(docroot.length);
   res.writeHead(403, {
       'Content-Type': 'text/html'
   });
@@ -220,7 +220,7 @@ StaticServlet.prototype.sendDirectory_ = function(req, res, path) {
 };
 
 StaticServlet.prototype.writeDirectoryIndex_ = function(req, res, path, files) {
-  path = path.substring(1);
+  path = path.substring(docroot.length);
   res.writeHead(200, {
     'Content-Type': 'text/html'
   });
