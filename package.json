@@ -1,11 +1,14 @@
 {
+  "engines": {
+	"node": "0.10.x"  
+  },
   "name": "switchmin-ng",
   "private": true,
   "version": "0.0.1",
   "description": "Digital switching function minimize",
   "repository": "https://github.com/double16/switchmin-ng",
   "license": "MIT",
-  "main": "http-server.js",
+  "main": "scripts/http-server.js",
   "dependencies": {
     "bower": "^1.3.1"
   },
