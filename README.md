@@ -10,3 +10,7 @@ Technical goals of this project:
 - Printer friendly
 - Full automated tests: unit and e2e
 
+Tech stack:
+- AngularJS
+- Twitter Bootstrap CSS
+- HTML5 Boilerplate (for browser shims)

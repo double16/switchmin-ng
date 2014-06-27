@@ -11,27 +11,35 @@
   <script src="bower_components/html5-boilerplate/js/vendor/modernizr-2.6.2.min.js"></script>
 </head>
 <body>
-  <div class="container-fluid">
   
-  <div class="row">
-      <ul class="menu">
-        <li><a href="#/about">about</a></li>
-        <li><a href="#/function">function</a></li>
-        <li><a href="#/costs">costs</a></li>
-        <li><a href="#/realization">realization</a></li>
+  <nav class="navbar navbar-default" role="navigation" ng-controller="NavCtrl">
+    <div class="container-fluid">
+      <ul class="nav navbar-nav">
+        <li ng-class="{active: $route.current.activeNav === 'about' }"><a href="#/about">about</a></li>
+        <li ng-class="{active: $route.current.activeNav === 'function' }"><a href="#/function">function</a></li>
+        <li ng-class="{active: $route.current.activeNav === 'costs' }"><a href="#/costs">costs</a></li>
+        <li ng-class="{active: $route.current.activeNav === 'realization' }"><a href="#/realization">realization</a></li>
       </ul>
-  </div>
+    </div>
+  </nav>
 
   <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
   <![endif]-->
 
+  <div class="container">
+  
   <div class="row" ng-view></div>
 
-  <div>SwitchMin: v<span app-version></span>, hosted at <a target="_new" href="http://GitHub.com/double16/switchmin-ng">GitHub</a></div>
-
+  <div class="row footer">
+    <div class="col-xs-12">
+        SwitchMin v<span app-version></span> | <a target="_new" href="http://GitHub.com/double16/switchmin-ng">GitHub</a>
+    </div>
   </div>
   
+  </div>
+
+
   <!-- build:js scripts/vendor.js -->
   <!-- bower:js -->
   <!--<script src="bower_components/jquery/dist/jquery.js"></script>-->

@@ -10,9 +10,9 @@ angular.module('switchminapp', [
   'switchminapp.controllers'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/about', {templateUrl: 'partials/about.html', controller: 'MyCtrl1'});
-  $routeProvider.when('/function', {templateUrl: 'partials/function/function.html', controller: 'MyCtrl2'});
-  $routeProvider.when('/costs', {templateUrl: 'partials/optimizer/costs.html', controller: 'MyCtrl2'});
-  $routeProvider.when('/realization', {templateUrl: 'partials/realizer/realization.html', controller: 'MyCtrl2'});
+  $routeProvider.when('/about', {templateUrl: 'partials/about.html', activeNav: 'about', controller: 'MyCtrl1'});
+  $routeProvider.when('/function', {templateUrl: 'partials/function/function.html', activeNav: 'function', controller: 'MyCtrl2'});
+  $routeProvider.when('/costs', {templateUrl: 'partials/optimizer/costs.html', activeNav: 'costs', controller: 'MyCtrl2'});
+  $routeProvider.when('/realization', {templateUrl: 'partials/realizer/realization.html', activeNav: 'realization', controller: 'MyCtrl2'});
   $routeProvider.otherwise({redirectTo: '/about'});
 }]);

@@ -3,9 +3,12 @@
 /* Controllers */
 
 angular.module('switchminapp.controllers', [])
-  .controller('MyCtrl1', ['$scope', function($scope) {
+  .controller('NavCtrl', function($scope, $route) {
+      $scope.$route = $route
+  })
+  .controller('MyCtrl1', function($scope) {
 
-  }])
-  .controller('MyCtrl2', ['$scope', function($scope) {
-
-  }]);
+  })
+  .controller('MyCtrl2', function($scope) {
+      
+  });
