@@ -6,10 +6,10 @@ exports.config = {
   ],
 
   capabilities: {
-    'browserName': 'chrome'
+    'browserName': 'phantomjs'
   },
 
-  baseUrl: 'http://localhost:8000/app/',
+  baseUrl: 'http://${IP-localhost}:${PORT-8000}/app/',
 
   framework: 'jasmine',
 

@@ -2,15 +2,17 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('myApp', [
+angular.module('switchminapp', [
   'ngRoute',
-  'myApp.filters',
-  'myApp.services',
-  'myApp.directives',
-  'myApp.controllers'
+  'switchminapp.filters',
+  'switchminapp.services',
+  'switchminapp.directives',
+  'switchminapp.controllers'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/view1', {templateUrl: 'partials/partial1.html', controller: 'MyCtrl1'});
-  $routeProvider.when('/view2', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
-  $routeProvider.otherwise({redirectTo: '/view1'});
+  $routeProvider.when('/about', {templateUrl: 'partials/about.html', controller: 'MyCtrl1'});
+  $routeProvider.when('/function', {templateUrl: 'partials/function/function.html', controller: 'MyCtrl2'});
+  $routeProvider.when('/costs', {templateUrl: 'partials/optimizer/costs.html', controller: 'MyCtrl2'});
+  $routeProvider.when('/realization', {templateUrl: 'partials/realizer/realization.html', controller: 'MyCtrl2'});
+  $routeProvider.otherwise({redirectTo: '/about'});
 }]);

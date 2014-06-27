@@ -1,6 +1,6 @@
 {
   "name": "switchmin-ng",
-  "description": "Digital switching function minimize",
+  "description": "Digital switching function minimizer",
   "version": "0.0.1",
   "homepage": "https://github.com/double16/switchmin-ng",
   "license": "MIT",
@@ -10,6 +10,7 @@
     "angular-route": "1.2.x",
     "angular-loader": "1.2.x",
     "angular-mocks": "~1.2.x",
+    "bootstrap": "3.2.x",
     "html5-boilerplate": "~4.3.0"
   }
 }
