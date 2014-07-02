@@ -1,53 +1,97 @@
 <div class="row">
 <div class="col-xs-12 page-header">
     <h1>Specify Your Cost Criteria</h1>
-    <p class="help-block"></p>
+    <p class="help-block">[describe what costs are and why they are important]</p>
 </div>
 </div>
 
 <div class="row">
     <div class="col-xs-12">Enter the cost criteria you wish to use for minimization. You may select more than one.</div>
 </div>
-<form role="form list-group">
-    <div class="form-group list-group-item">
-        <div class="col-sm-1">
-            <input type="checkbox" name="hazard_free"/> Hazard Free
+<form role="form">
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="hazard_free"/>
+                    Hazard Free
+                </label>
+            </div>
         </div>
     </div>
-    <div class="form-group list-group-item">
-        <div class="col-sm-1">
-            <input type="checkbox" name="cost_inputs"/> Inputs
-        </div>
-        <div class="col-sm-3">
-            Each input to a gate is given a cost of 1. Recommended for IC design.
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="cost_inputs"/>
+                    Inputs
+                </label>
+                <p class="help-block">Each input to a gate is given a cost of 1. Recommended for IC design.</p>
+            </div>
         </div>
         <div class="col-sm-2">
-            <input type="checkbox" name="cost_inputs_dnf"/> <abbr title="" class="initialism">DNF</abbr>
-            <input type="checkbox" name="cost_inputs_cnf"/> <abbr title="" class="initialism">CNF</abbr>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="cost_inputs_dnf"/>
+                    <abbr title="" class="initialism">DNF</abbr>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="cost_inputs_cnf"/>
+                    <abbr title="" class="initialism">CNF</abbr>
+                </label>
+            </div>
         </div>
     </div>    
-    <div class="form-group list-group-item">
-        <div class="col-sm-1">
-            <input type="checkbox" name="cost_literals"/> Literals
-        </div>
-        <div class="col-sm-3">
-            Each input to a first level gate is given a cost of 1.
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="cost_literals"/>
+                    Literals
+                </label>
+                <p class="help-block">Each input to a first level gate is given a cost of 1.</p>
+            </div>
         </div>
         <div class="col-sm-2">
-            <input type="checkbox" name="cost_literals_dnf"/> <abbr title="" class="initialism">DNF</abbr>
-            <input type="checkbox" name="cost_literals_cnf"/> <abbr title="" class="initialism">CNF</abbr>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="cost_literals_dnf"/>
+                    <abbr title="" class="initialism">DNF</abbr>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="cost_literals_cnf"/>
+                    <abbr title="" class="initialism">CNF</abbr>
+                </label>
+            </div>
         </div>
     </div>    
-    <div class="form-group list-group-item">
-        <div class="col-sm-1">
-            <input type="checkbox" name="cost_terms"/> Terms/Gates
-        </div>
-        <div class="col-sm-3">
-            Each term is given a cost of 1. Reduces number of gates used. Recommended for breadboard applications.
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="cost_terms"/>
+                    Terms/Gates
+                </label>
+                <p class="help-block">Each term is given a cost of 1. Reduces number of gates used. Recommended for breadboard applications.</p>
+            </div>
         </div>
         <div class="col-sm-2">
-            <input type="checkbox" name="cost_terms_dnf"/> <abbr title="" class="initialism">DNF</abbr>
-            <input type="checkbox" name="cost_terms_cnf"/> <abbr title="" class="initialism">CNF</abbr>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="cost_terms_dnf"/>
+                    <abbr title="" class="initialism">DNF</abbr>
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="cost_terms_cnf"/>
+                    <abbr title="" class="initialism">CNF</abbr>
+                </label>
+            </div>
         </div>
     </div>    
 </form>
