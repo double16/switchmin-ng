@@ -15,7 +15,7 @@ var DigitalFunction = function(id, desc, inputs) {
     /**
      * Get the version number for this function. The version is incremented for every change.
      */
-    this.getVersion() {
+    this.getVersion = function() {
         return _version;
     };
     
