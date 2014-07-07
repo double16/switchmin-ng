@@ -7,14 +7,33 @@ Value.ZERO = '0';
 Value.DC = '?';
 
 var Input = function(id, desc) {
+    if (/[^A-Za-z0-9]/.test(id)) {
+        throw "id must only have alphanumerics";
+    }
     this.id = id;
     this.desc = desc;
+    
+    this.toString = function() {
+        return id+': '+desc;
+    };
 };
 
 var InputState = function(stringified) {
     var _inputIdToValue = {};
     var _inputMatcher = /^_i_/;
+    var _count = 0;
 
+    this.toString = function() {
+        return this.stringify();
+    };
+    
+    function _inputId(input) {
+        if (input instanceof Input) {
+            input = input.id;
+        }
+        return input;
+    }
+    
     /**
      * Add an (input,value) pair to the state. Any existing state will be replaced.
      * @param input Input or string that is Input.id
@@ -26,12 +45,64 @@ var InputState = function(stringified) {
             case Value.ZERO: case Value.ONE: break;
             default: throw "Expecting Value.ZERO or Value.ONE, got "+value;
         }
-        if (!(typeof input == 'string' || input instanceof String)) {
-            input = input.id;
-        }
+        input = _inputId(input);
         _inputIdToValue['_i_'+input] = value;
+        _count++;
         return this;
     };
+
+    /**
+     * Add all states from the argumen to this object.
+     * @param state InputState or stringified version
+     * @return this for chaining
+     */
+    this.addAll = function(state) {
+        if (state instanceof InputState) {
+            state = state.stringify();
+        }
+        this.objectify(this.stringify()+','+state);
+        return this;
+    };
+    
+    this.removeAll = function(c) {
+        (c || []).forEach(function(el) {
+            var ids = [];
+            if (el instanceof InputState) {
+                var split = el.stringify().split(/[:,]/);
+                while (split.length > 1) {
+                    ids.push(split.shift());
+                    split.shift();
+                }
+            } else {
+                ids.push(_inputId(el));
+            }
+            ids.forEach(function(id) {
+                if (_inputIdToValue['_i_'+id] !== undefined) {
+                    _count--;
+                }
+                delete _inputIdToValue['_i_'+id];
+            });
+        });
+        return this;
+    };
+    
+    this.clone = function() {
+        return new InputState(this.stringify());
+    }
+    
+    /**
+     * Get the value for the input.
+     * @param input Input or string that is Input.id
+     * @return Value or undefined
+     */
+    this.value = function(input) {
+        input = _inputId(input);
+        return _inputIdToValue['_i_'+input];
+    }
+    
+    this.count = function() {
+        return _count;
+    }
     
     this.stringify = function() {
         var a = [];
@@ -46,6 +117,7 @@ var InputState = function(stringified) {
     
     this.objectify = function(str) {
         _inputIdToValue = {};
+        _count = 0;
         var a = (str || '').split(/[:,]/);
         while (a.length > 1) {
             this.add(a.shift(), a.shift());

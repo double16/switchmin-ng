@@ -21,11 +21,105 @@ var DigitalFunction = function(id, desc, inputs) {
     
     this.getInputs = function() {
         return _inputs.concat([]);
+    };
+    
+    function _renameInputs(inputs) {
+        for(var state in _values) {
+            var value = _values[state];
+            delete _values[state];
+            var oldState = new InputState(state);
+            var newState = new InputState();
+            for(var i=0; i<_inputs.length; i++) {
+                newState.add(inputs[i], oldState.value(_inputs[i]));
+            }
+            _values[newState.stringify()] = value;
+        }
+    }
+    
+    function _permutateStates(states) {
+        var perm = [ ];
+        states.forEach(function(state) {
+            var a = [];
+            if (perm.length === 0) {
+                a.push(new InputState().add(state, Value.ZERO));
+                a.push(new InputState().add(state, Value.ONE));
+            } else perm.forEach(function(el) {
+                a.push(el.clone().add(state, Value.ZERO));
+                a.push(el.clone().add(state, Value.ONE));
+            });
+            perm = a;
+        });
+        return perm;
+    }
+    
+    function _addInputs(adds) {
+        var newStates = _permutateStates(adds);
+
+        for(var state in _values) {
+            var value = _values[state];
+            delete _values[state];
+            var stateObj = new InputState(state);
+            newStates.forEach(function(newState) {
+                _values[stateObj.clone().addAll(newState).stringify()] = value;
+            });
+        }        
+    }
+    
+    function _removeInputs(removes) {
+        var removedStates = _permutateStates(removes);
+
+        var newValues = {};
+        for(var state in _values) {
+            var value = _values[state];
+            var newState = new InputState(state).removeAll(removes).stringify();
+            var existingValue = newValues[newState];
+            if (existingValue !== undefined && existingValue != value) {
+                newValues[newState] = Value.DC;
+            } else {
+                newValues[newState] = value;
+            }
+        }        
+        _values = newValues;
     }
     
     this.setInputs = function(inputs) {
+        var adds = inputs.filter(function(el) { return !_inputs.some(function(el2) { return el.id === el2.id } ) } );
+        var removes = _inputs.filter(function(el) { return !inputs.some(function(el2) { return el.id === el2.id } ) } );
+        if (inputs.length === _inputs.length) {
+            _renameInputs(inputs);
+        } else if (removes.length > 0 && adds.length === 0) {
+            _removeInputs(removes);
+        } else if (adds.length > 0 && removes.length === 0) {
+            _addInputs(adds);
+        } else {
+            // too complicated, clear all values
+            _values = {};
+        }
+        
         _inputs = inputs.concat([]);
-        // TODO: update/clear states
+        _version++;
+    };
+    
+    /**
+     * Validates the given state and returns a normalized string value.
+     * @param state InputState or stringified InputState
+     * @return stringified InputState
+     * @throws if state doesn't match with configured inputs
+     */
+    function _validateState(state) {
+        if (!(state instanceof InputState)) {
+            state = new InputState(state);
+        }
+        if (state.count() !== _inputs.length) {
+            throw "input mismatched";
+        }
+        for(var i=0; i<_inputs.length; i++) {
+            var input = _inputs[i];
+            if (state.value(input) === undefined) {
+                throw "input mismatched";
+            }
+        }
+        return state.stringify();
     }
     
     /**
@@ -35,7 +129,14 @@ var DigitalFunction = function(id, desc, inputs) {
      * @return this for chaining
      */
     this.setInputState = function(state, value) {
-        
+        state = _validateState(state);
+        switch (value) {
+            case Value.ZERO: case Value.ONE: case Value.DC: break;
+            default: throw "Invalid Value, got "+value;
+        }
+        _values[state] = value;
+        _version++;
+        return this;
     };
     
     /**
@@ -44,6 +145,11 @@ var DigitalFunction = function(id, desc, inputs) {
      * @return value Value
      */
     this.getInputState = function(state) {
-        
+        state = _validateState(state);
+        var value = _values[state];
+        if (value === undefined) {
+            value = Value.DC;
+        }
+        return value;
     };
 };
