@@ -5,19 +5,22 @@
 </div>
 </div>
 
+<form name="inputsForm" novalidate>
+
 <div class="panel panel-default">
-    <div class="panel-heading">Inputs <button class="btn btn-default btn-sm"><span class="glyphicon glyphicon-plus"></span></button></div>
+    <div class="panel-heading">Inputs</div>
     <div class="panel-body">
         <div class="row">
-            <div class="col-md-2"><strong>Label</strong></div><div class="col-md-10"><strong>Description</strong></div>
+            <div class="col-md-2"><strong>Label</strong></div><div class="col-md-9"><strong>Description</strong></div>
+        </div>
+        <div class="row ng-class: {'has-error': inputsForm.$error.inputIdValid };" ng-repeat="input in df.getInputs()">
+            <div class="col-md-2"><input name="f_input" ng-model="input.id" class="form-control input-sm" input-id-valid /></div>
+            <div class="col-md-9"><input name="f_desc" ng-model="input.desc" class="form-control input-sm"/></div>
+            <div class="col-md-1"><a ng-show="df.getInputs().length > 1" ng-click="removeInput($index)"><span class="glyphicon glyphicon-minus"></span></a></div>
         </div>
         <div class="row">
-            <div class="col-md-2"><input name="f_input" value="x" class="form-control input-sm" /></div>
-            <div class="col-md-10"><input name="f_desc" value="first input" class="form-control input-sm"/></div>
-        </div>
-        <div class="row">
-            <div class="col-md-2"><input name="f_input" value="y" class="form-control input-sm" /></div>
-            <div class="col-md-10"><input name="f_desc" value="second input" class="form-control input-sm"/></div>
+            <div class="col-md-11"></div>
+            <div class="col-md-1"><a ng-click="addInput()"><span class="glyphicon glyphicon-plus"></span></a></div>
         </div>
     </div>
 </div>
@@ -44,3 +47,5 @@
 </div>
 <div class="col-xs-10"></div>
 </div>
+
+</form>

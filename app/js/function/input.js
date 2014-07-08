@@ -7,7 +7,7 @@ Value.ZERO = '0';
 Value.DC = '?';
 
 var Input = function(id, desc) {
-    if (/[^A-Za-z0-9]/.test(id)) {
+    if (!id || /[^A-Za-z0-9]/.test(id)) {
         throw "id must only have alphanumerics";
     }
     this.id = id;
@@ -88,7 +88,7 @@ var InputState = function(stringified) {
     
     this.clone = function() {
         return new InputState(this.stringify());
-    }
+    };
     
     /**
      * Get the value for the input.
@@ -98,11 +98,11 @@ var InputState = function(stringified) {
     this.value = function(input) {
         input = _inputId(input);
         return _inputIdToValue['_i_'+input];
-    }
+    };
     
     this.count = function() {
         return _count;
-    }
+    };
     
     this.stringify = function() {
         var a = [];

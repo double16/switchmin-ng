@@ -7,12 +7,13 @@ angular.module('switchminapp', [
   'switchminapp.filters',
   'switchminapp.services',
   'switchminapp.directives',
-  'switchminapp.controllers'
+  'switchminapp.controllers',
+  'switchminapp.function.controllers'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/about', {templateUrl: 'partials/about.html', activeNav: 'about', controller: 'MyCtrl1'});
-  $routeProvider.when('/function', {templateUrl: 'partials/function/function.html', activeNav: 'function', controller: 'MyCtrl2'});
-  $routeProvider.when('/costs', {templateUrl: 'partials/optimizer/costs.html', activeNav: 'costs', controller: 'MyCtrl2'});
-  $routeProvider.when('/realization', {templateUrl: 'partials/realizer/realization.html', activeNav: 'realization', controller: 'MyCtrl2'});
+  $routeProvider.when('/about', {templateUrl: 'partials/about.html', activeNav: 'about', controller: 'NavCtrl'});
+  $routeProvider.when('/function', {templateUrl: 'partials/function/function.html', activeNav: 'function', controller: 'FunctionCtrl'});
+  $routeProvider.when('/costs', {templateUrl: 'partials/optimizer/costs.html', activeNav: 'costs', controller: 'CostCtrl'});
+  $routeProvider.when('/realization', {templateUrl: 'partials/realizer/realization.html', activeNav: 'realization', controller: 'RealizationCtrl'});
   $routeProvider.otherwise({redirectTo: '/about'});
 }]);
