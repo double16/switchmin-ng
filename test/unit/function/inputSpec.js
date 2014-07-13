@@ -59,16 +59,55 @@ describe('InputState object', function() {
         expect(state.stringify()).toEqual('1:0');
     });
     
-    it('should stringify two inputs', function() {
+    it('should stringify two inputs in sorted order', function() {
         state.add(input1, Value.ZERO).add(input2, Value.ONE);
         expect(state.stringify()).toEqual('1:0,B:1');
     });
     
-    it('should stringify three inputs', function() {
+    it('should stringify three inputs in sorted order', function() {
         state.add(input1, Value.ZERO).add(input2, Value.ONE).add(input3, Value.ONE);
         expect(state.stringify()).toEqual('1:0,B:1,XYZ:1');
     });
     
+    it('should stringify two inputs in specified order', function() {
+        state.add(input1, Value.ZERO).add(input2, Value.ONE);
+        expect(state.stringify([input2, input1])).toEqual('B:1,1:0');
+    });
+    
+    it('should stringify three inputs in specified order', function() {
+        state.add(input1, Value.ZERO).add(input2, Value.ONE).add(input3, Value.ONE);
+        expect(state.stringify([input2, input1, input3])).toEqual('B:1,1:0,XYZ:1');
+    });
+    
+    it('should stringify zero values', function() {
+        expect(state.stringifyValues()).toEqual('');
+    });
+    
+    it('should stringify one value', function() {
+        state.add(input1, Value.ZERO);
+        expect(state.stringifyValues()).toEqual('0');
+    });
+    
+    it('should stringify two values in sorted input order', function() {
+        state.add(input1, Value.ZERO).add(input2, Value.ONE);
+        expect(state.stringifyValues()).toEqual('01');
+    });
+    
+    it('should stringify three values in sorted input order', function() {
+        state.add(input1, Value.ZERO).add(input2, Value.ONE).add(input3, Value.ONE);
+        expect(state.stringifyValues()).toEqual('011');
+    });
+
+    it('should stringify two values in specified input order', function() {
+        state.add(input1, Value.ZERO).add(input2, Value.ONE);
+        expect(state.stringifyValues([input2, input1])).toEqual('10');
+    });
+    
+    it('should stringify three values in specified input order', function() {
+        state.add(input1, Value.ZERO).add(input2, Value.ONE).add(input3, Value.ONE);
+        expect(state.stringifyValues([input2, input1, input3])).toEqual('101');
+    });
+
     it('constructor should objectify', function() {
         var state2 = new InputState('1:0,B:1,XYZ:1');
         expect(state2.stringify()).toEqual('1:0,B:1,XYZ:1');
@@ -157,4 +196,37 @@ describe('InputState object', function() {
         expect(state.stringify()).toEqual('1:0');
         expect(state2.stringify()).toEqual('1:0,B:1');
     });
+});
+
+describe('InputState permutation', function() {
+    var input1, input2, input3;
+    
+    beforeEach(function() {
+        input1 = new Input('x');
+        input2 = new Input('y');
+        input3 = new Input('z');
+    });
+    
+    it('should handle a null permutation', function() {
+        expect(InputState.permutateStates(null)).toEqual([]);
+    });  
+
+    it('should handle an empty permutation', function() {
+        expect(InputState.permutateStates([])).toEqual([]);
+    });  
+
+    it('should handle a single input', function() {
+        expect(InputState.permutateStates([input1]).map(function(state) { return state.stringify() }))
+            .toEqual(['x:0','x:1']);
+    });  
+
+    it('should handle two inputs', function() {
+        expect(InputState.permutateStates([input1, input2]).map(function(state) { return state.stringify() }))
+            .toEqual(['x:0,y:0','x:0,y:1','x:1,y:0','x:1,y:1']);
+    });  
+
+    it('should handle three inputs', function() {
+        expect(InputState.permutateStates([input1, input2, input3]).map(function(state) { return state.stringify() }))
+            .toEqual(['x:0,y:0,z:0','x:0,y:0,z:1','x:0,y:1,z:0','x:0,y:1,z:1','x:1,y:0,z:0','x:1,y:0,z:1','x:1,y:1,z:0','x:1,y:1,z:1']);
+    });  
 });

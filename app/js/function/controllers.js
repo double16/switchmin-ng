@@ -43,5 +43,53 @@ angular.module('switchminapp.function.controllers', [])
               $scope.df.setInputs(inputs);
           }
       };
+      
+      function calcInputDivider() {
+          var inputs = $scope.df.getInputs();
+          return Math.floor(inputs.length / 2) + inputs.length % 2;
+      };
+
+      function getHorizontalInputs() {
+          var inputs = $scope.df.getInputs();
+          if (inputs.length === 0) return [];
+          return inputs.slice(0, calcInputDivider());
+      }
+      
+      function getVerticalInputs() {
+          var inputs = $scope.df.getInputs();
+          if (inputs.length === 0) return [];
+          return inputs.slice(calcInputDivider());
+      }
+      
+      $scope.getHorizontalLabel = function() {
+          return getHorizontalInputs().map(function(el) { return el.id }).join(',');
+      };
+      
+      $scope.getHorizontalInputLabels = function() {
+          var inputs = getHorizontalInputs();
+          return InputState.permutateStates(inputs).map(function(state) { return state.stringifyValues(inputs) });
+      };
+      
+      $scope.getHorizontalInputStates = function() {
+          var inputs = getHorizontalInputs();
+          return InputState.permutateStates(inputs).map(function(state) { return state.stringify(inputs) });
+      };
+      
+      $scope.getVerticalLabel = function() {
+          return getVerticalInputs().map(function(el) { return el.id }).join(',');
+      };
+      
+      $scope.getVerticalInputLabels = function() {
+          if ($scope.df.getInputs().length < 2 ) return [ '' ];
+          var inputs = getVerticalInputs();
+          return InputState.permutateStates(inputs).map(function(state) { return state.stringifyValues(inputs) });
+      };
+      
+      $scope.getVerticalInputStates = function() {
+          if ($scope.df.getInputs().length < 2) return [ '' ];
+          var inputs = getVerticalInputs();
+          return InputState.permutateStates(inputs).map(function(state) { return state.stringify(inputs) });
+      };
+      
   })
 ;

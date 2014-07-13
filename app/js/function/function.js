@@ -36,24 +36,8 @@ var DigitalFunction = function(id, desc, inputs) {
         }
     }
     
-    function _permutateStates(states) {
-        var perm = [ ];
-        states.forEach(function(state) {
-            var a = [];
-            if (perm.length === 0) {
-                a.push(new InputState().add(state, Value.ZERO));
-                a.push(new InputState().add(state, Value.ONE));
-            } else perm.forEach(function(el) {
-                a.push(el.clone().add(state, Value.ZERO));
-                a.push(el.clone().add(state, Value.ONE));
-            });
-            perm = a;
-        });
-        return perm;
-    }
-    
     function _addInputs(adds) {
-        var newStates = _permutateStates(adds);
+        var newStates = InputState.permutateStates(adds);
 
         for(var state in _values) {
             var value = _values[state];
@@ -66,7 +50,7 @@ var DigitalFunction = function(id, desc, inputs) {
     }
     
     function _removeInputs(removes) {
-        var removedStates = _permutateStates(removes);
+        var removedStates = InputState.permutateStates(removes);
 
         var newValues = {};
         for(var state in _values) {

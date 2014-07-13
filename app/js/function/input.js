@@ -104,16 +104,49 @@ var InputState = function(stringified) {
         return _count;
     };
     
-    this.stringify = function() {
+    /**
+     * Create a string version of this object.
+     * @param inputOrder an array of Input or string values forcing a particular order.
+     */
+    this.stringify = function(inputOrder) {
         var a = [];
-        for(var input in _inputIdToValue) {
-            if (_inputMatcher.test(input)) {
-                a.push(input.substr(3)+':'+_inputIdToValue[input]);
+        if (inputOrder) {
+            inputOrder.forEach(function(input) {
+                var id = _inputId(input);
+                a.push(id+':'+_inputIdToValue['_i_'+id]);
+            });
+        } else {
+            for(var input in _inputIdToValue) {
+                if (_inputMatcher.test(input)) {
+                    a.push(input.substr(3)+':'+_inputIdToValue[input]);
+                }
             }
+            a.sort();
         }
-        a.sort();
         return a.join(',');
     };
+
+    /**
+     * Create a string version of the values.
+     * @param inputOrder an array of Input or string values forcing a particular order.
+     */
+    this.stringifyValues = function(inputOrder) {
+        var a = [];
+        if (inputOrder) {
+            inputOrder.forEach(function(input) {
+                var id = _inputId(input);
+                a.push(_inputIdToValue['_i_'+id]);
+            });
+        } else {
+            for(var input in _inputIdToValue) {
+                if (_inputMatcher.test(input)) {
+                    a.push(_inputIdToValue[input]);
+                }
+            }
+            a.sort();
+        }
+        return a.join('');
+    };   
     
     this.objectify = function(str) {
         _inputIdToValue = {};
@@ -126,3 +159,22 @@ var InputState = function(stringified) {
     
     this.objectify(stringified);
 };
+
+InputState.permutateStates = function(states) {
+    var perm = [ ];
+    (states || []).forEach(function(state) {
+        var a = [];
+        if (perm.length === 0) {
+            a.push(new InputState().add(state, Value.ZERO));
+            a.push(new InputState().add(state, Value.ONE));
+        } else perm.forEach(function(el) {
+            a.push(el.clone().add(state, Value.ZERO));
+            a.push(el.clone().add(state, Value.ONE));
+        });
+        perm = a;
+    });
+    return perm;
+}
+    
+
+
