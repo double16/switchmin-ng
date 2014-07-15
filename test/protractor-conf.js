@@ -6,10 +6,12 @@ exports.config = {
   ],
 
   capabilities: {
-    'browserName': 'phantomjs'
+    'browserName': 'chrome',
+	'phantomjs.binary.path': './node_modules/karma-phantomjs-launcher/node_modules/phantomjs/bin/phantomjs',
+	'phantomjs.cli.args': ['--debug=true', '--webdriver', '--webdriver-logfile=webdriver.log', '--webdriver-loglevel=DEBUG']
   },
 
-  baseUrl: 'http://${IP-localhost}:${PORT-8000}/app/',
+  baseUrl: 'http://localhost:8000/',
 
   framework: 'jasmine',
 
