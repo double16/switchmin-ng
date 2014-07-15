@@ -16,8 +16,8 @@ module.exports = function(config){
     frameworks: ['jasmine'],
 
     browsers : ['PhantomJS'],
-    hostname: process.env.IP,
-    port: process.env.PORT,
+    hostname: process.env.IP || 'localhost',
+    port: process.env.PORT || '9876',
     
     plugins : [
             'karma-chrome-launcher',
