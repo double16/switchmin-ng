@@ -23,26 +23,29 @@ angular.module('switchminapp.function.controllers', [])
   
   .directive('smTristate', function() {
 	return {
+	  restrict: 'A',
 		scope: {
-			smInputState: '='
+			state: '=smModel'
 		},
 		link: function(scope, element, attrs) {
-			scope.$watch(attrs.smInputState, function(value) {
+		  scope.$watch(attrs.smModel, function(value) {
 				var text = Value.DC;
 				switch (value) {
 					case Value.ZERO: case Value.ONE: text = value;
 				}
-				element.text(text);
-			});
-			
+				if (!value) scope.state = text;
+		    element.text(text);
+		  });
+
 			element.on('click', function(event) {
 				event.preventDefault();
 				var newValue = Value.DC;
-				switch (element.text()) {
+				switch (scope.state) {
 					case Value.DC: newValue = Value.ZERO; break;
 					case Value.ZERO: newValue = Value.ONE; break;
 				}
-				scope.smInputState = newValue;
+				scope.state = newValue;
+				element.text(newValue);
 			});
 		}
 	}

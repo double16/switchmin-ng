@@ -136,4 +136,28 @@ var DigitalFunction = function(id, desc, inputs) {
         }
         return value;
     };
+
+    /**
+     * Return an object that has a 'value' property that can be used to get/set the value for
+     * an input state. Allows easier binding.
+     * @param state InputState or stringified version
+     */
+    this.inputStateHolder = function(state) {
+        var df = this;
+        var res = {};
+        Object.defineProperty(res, 'value', {
+            get: function() {
+                console.log('get '+state);
+                return df.getInputState(state);
+            },
+            set: function(val) {
+                console.log('set '+state+' = '+val);
+                df.setInputState(state, val);
+            },
+            enumerable: true,
+            configurable: true
+        });
+        return res;
+    };
+
 };

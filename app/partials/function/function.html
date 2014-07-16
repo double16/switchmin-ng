@@ -37,7 +37,7 @@
     <tr ng-repeat="verticalInputState in getVerticalInputStates()">
         <th>{{ getVerticalInputLabels()[$index] }}</th>
         <td ng-repeat="horizontalInputState in getHorizontalInputStates()">
-            <button class="btn btn-default btn-xs" title="Don't Care">?</button>
+            <button class="btn btn-default btn-xs" sm-tristate sm-model="df.inputStateHolder(horizontalInputState+','+verticalInputState).value"></button>
         </td>
     </tr>
 </table>

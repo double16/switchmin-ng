@@ -242,4 +242,17 @@ describe('DigitalFunction object', function() {
         expect(df.getInputState('x2:0,z:0')).toEqual(Value.DC);
         expect(df.getInputState('x2:1,z:1')).toEqual(Value.DC);
     });
+    
+    it('should expose input state as property', function() {
+        df = new DigitalFunction('df', 'df desc', [ inputX ]);
+        var prop = df.inputStateHolder(new InputState('x:0'));
+        expect(prop.value).toEqual(Value.DC);
+        expect(df.getInputState('x:0')).toEqual(Value.DC);
+        prop.value = Value.ZERO;
+        expect(prop.value).toEqual(Value.ZERO);
+        expect(df.getInputState('x:0')).toEqual(Value.ZERO);
+        prop.value = Value.ONE;
+        expect(prop.value).toEqual(Value.ONE);
+        expect(df.getInputState('x:0')).toEqual(Value.ONE);
+    });
 });

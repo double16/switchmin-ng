@@ -285,7 +285,7 @@ describe('function controllers', function() {
 		beforeEach(inject(function($compile, $rootScope) {
             scope = $rootScope.$new();
             scope.state=null;
-            var html='<button sm-tristate ng-model="state"></button>';
+            var html='<button sm-tristate sm-model="state"></button>';
 			element = $compile(angular.element(html))(scope);
 			scope.$digest();
 			button = element[0];
@@ -315,6 +315,7 @@ describe('function controllers', function() {
 
 		it('should change from don\'t care to zero', function() {
 			scope.state = '?';
+			scope.$digest();
 			button.click();
 			scope.$digest();
 			expect(element.text()).toBe('0');
@@ -322,6 +323,7 @@ describe('function controllers', function() {
 
 		it('should change from zero to one', function() {
 			scope.state = '0';
+			scope.$digest();
 			button.click();
 			scope.$digest();
 			expect(element.text()).toBe('1');
@@ -329,6 +331,7 @@ describe('function controllers', function() {
 	
 		it('should change from one to don\'t care', function() {
 			scope.state = '1';
+			scope.$digest();
 			button.click();
 			scope.$digest();
 			expect(element.text()).toBe('?');
