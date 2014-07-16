@@ -21,6 +21,33 @@ angular.module('switchminapp.function.controllers', [])
       };
   })
   
+  .directive('smTristate', function() {
+	return {
+		scope: {
+			smInputState: '='
+		},
+		link: function(scope, element, attrs) {
+			scope.$watch(attrs.smInputState, function(value) {
+				var text = Value.DC;
+				switch (value) {
+					case Value.ZERO: case Value.ONE: text = value;
+				}
+				element.text(text);
+			});
+			
+			element.on('click', function(event) {
+				event.preventDefault();
+				var newValue = Value.DC;
+				switch (element.text()) {
+					case Value.DC: newValue = Value.ZERO; break;
+					case Value.ZERO: newValue = Value.ONE; break;
+				}
+				scope.smInputState = newValue;
+			});
+		}
+	}
+  })
+  
   .controller('FunctionCtrl', function($scope) {
       $scope.df = new DigitalFunction('func', 'New function', [ new Input('x', '') ]);
       
@@ -28,7 +55,7 @@ angular.module('switchminapp.function.controllers', [])
           var inputs = $scope.df.getInputs();
           var inputIdx = 0;
           while (inputIdx < INPUT_IDS.length 
-            && inputs.some(function(el) { return el.id == INPUT_IDS[inputIdx] })) {
+            && inputs.some(function(el) { return el.id === INPUT_IDS[inputIdx] })) {
                 inputIdx++;
           }
           var input = new Input(inputIdx < INPUT_IDS.length ? INPUT_IDS[inputIdx] : 'input', '');

@@ -279,6 +279,62 @@ describe('function controllers', function() {
         }));
     });
 
+	describe('tristate directive', function() {
+		var scope, element, button;
+		
+		beforeEach(inject(function($compile, $rootScope) {
+            scope = $rootScope.$new();
+            scope.state=null;
+            var html='<button sm-tristate ng-model="state"></button>';
+			element = $compile(angular.element(html))(scope);
+			scope.$digest();
+			button = element[0];
+		}));
+		
+		it('should show don\'t care by default', function() {
+			expect(element.text()).toBe('?');
+		});
+		
+		it('should show don\'t care via a $watch', function() {
+			scope.state = '?';
+			scope.$digest();
+			expect(element.text()).toBe('?');
+		});
+		
+		it('should show zero via a $watch', function() {
+			scope.state = '0';
+			scope.$digest();
+			expect(element.text()).toBe('0');
+		});
+		
+		it('should show one via a $watch', function() {
+			scope.state = '1';
+			scope.$digest();
+			expect(element.text()).toBe('1');
+		});
+
+		it('should change from don\'t care to zero', function() {
+			scope.state = '?';
+			button.click();
+			scope.$digest();
+			expect(element.text()).toBe('0');
+		});
+
+		it('should change from zero to one', function() {
+			scope.state = '0';
+			button.click();
+			scope.$digest();
+			expect(element.text()).toBe('1');
+		});
+	
+		it('should change from one to don\'t care', function() {
+			scope.state = '1';
+			button.click();
+			scope.$digest();
+			expect(element.text()).toBe('?');
+		});
+	});
+	
     describe('input ID validator', function() {
         var scope, form;
         
