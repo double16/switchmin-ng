@@ -34,7 +34,7 @@ angular.module('switchminapp.function.controllers', [])
 					case Value.ZERO: case Value.ONE: text = value;
 				}
 				if (!value) scope.state = text;
-		    element.text(text);
+				element.text(text);
 		  });
 
 			element.on('click', function(event) {
@@ -44,8 +44,10 @@ angular.module('switchminapp.function.controllers', [])
 					case Value.DC: newValue = Value.ZERO; break;
 					case Value.ZERO: newValue = Value.ONE; break;
 				}
-				scope.state = newValue;
 				element.text(newValue);
+				scope.$apply(function() {
+					scope.state = newValue;
+				});
 			});
 		}
 	}
@@ -121,5 +123,9 @@ angular.module('switchminapp.function.controllers', [])
           return InputState.permutateStates(inputs).map(function(state) { return state.stringify(inputs) });
       };
       
+  })
+  
+  .controller('InputStateMatrixCtrl', function($scope) {
+	$scope.state = $scope.df.inputStateHolder(new InputState($scope.horizontalInputState).addAll($scope.verticalInputState));
   })
 ;

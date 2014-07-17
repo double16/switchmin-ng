@@ -20,7 +20,7 @@
         </div>
         <div class="row">
             <div class="col-md-11"></div>
-            <div class="col-md-1"><a ng-click="addInput()"><span class="glyphicon glyphicon-plus"></span></a></div>
+            <div class="col-md-1"><a class="add-input" ng-click="addInput()"><span class="glyphicon glyphicon-plus"></span></a></div>
         </div>
     </div>
 </div>
@@ -36,8 +36,8 @@
     </tr>
     <tr ng-repeat="verticalInputState in getVerticalInputStates()">
         <th>{{ getVerticalInputLabels()[$index] }}</th>
-        <td ng-repeat="horizontalInputState in getHorizontalInputStates()">
-            <button class="btn btn-default btn-xs" sm-tristate sm-model="df.inputStateHolder(horizontalInputState+','+verticalInputState).value"></button>
+        <td ng-repeat="horizontalInputState in getHorizontalInputStates()" ng-controller="InputStateMatrixCtrl">
+            <button class="btn btn-default btn-xs input-state" data-sm-tristate data-sm-model="state.value"></button>
         </td>
     </tr>
 </table>

@@ -147,11 +147,9 @@ var DigitalFunction = function(id, desc, inputs) {
         var res = {};
         Object.defineProperty(res, 'value', {
             get: function() {
-                console.log('get '+state);
                 return df.getInputState(state);
             },
             set: function(val) {
-                console.log('set '+state+' = '+val);
                 df.setInputState(state, val);
             },
             enumerable: true,
