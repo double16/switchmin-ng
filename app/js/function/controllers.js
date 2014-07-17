@@ -29,12 +29,11 @@ angular.module('switchminapp.function.controllers', [])
 		},
 		link: function(scope, element, attrs) {
 		  scope.$watch(attrs.smModel, function(value) {
-				var text = Value.DC;
-				switch (value) {
-					case Value.ZERO: case Value.ONE: text = value;
+				switch (scope.state) {
+					case Value.DC: case Value.ZERO: case Value.ONE: break;
+					default: scope.state = Value.DC; break;
 				}
-				if (!value) scope.state = text;
-				element.text(text);
+				element.text(scope.state);
 		  });
 
 			element.on('click', function(event) {

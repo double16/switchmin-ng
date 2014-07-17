@@ -158,4 +158,11 @@ var DigitalFunction = function(id, desc, inputs) {
         return res;
     };
 
+    this.toString = function() {
+        var str = this.id+', ';
+        for(var key in _values) {
+            str += key+'='+_values[key]+'|';
+        }
+        return str;
+    }
 };
