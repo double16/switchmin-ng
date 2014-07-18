@@ -10,6 +10,10 @@ module.exports = function(config){
       'app/js/**/*.js',
       'test/unit/**/*.js'
     ],
+    
+    preprocessors : {
+      'app/js/**/*.js': 'coverage'
+    },
 
     autoWatch : true,
 
@@ -24,13 +28,20 @@ module.exports = function(config){
             'karma-firefox-launcher',
             'karma-jasmine',
             'karma-junit-reporter',
-            'karma-phantomjs-launcher'
+            'karma-phantomjs-launcher',
+            'karma-coverage'
             ],
 
     junitReporter : {
       outputFile: 'test_out/unit.xml',
       suite: 'unit'
     },
+    
+    reporters : ['coverage', 'progress', 'junit'],
+    coverageReporter : {
+        type : 'html',
+        dir : 'coverage/'
+    }
 
   });
 };
