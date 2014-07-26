@@ -16,6 +16,11 @@ exports.config = {
   framework: 'jasmine',
 
   jasmineNodeOpts: {
-    defaultTimeoutInterval: 30000
+    defaultTimeoutInterval: 30000,
+    onComplete: function(){
+      browser.driver.executeScript("return __coverage__;").then(function(val) {
+        fs.writeFileSync("./coverage/e2e/coverage.json", JSON.stringify(val));
+      });
+    }
   }
 };
