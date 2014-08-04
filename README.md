@@ -3,6 +3,8 @@ switchmin-ng
 
 Digital switching function minimizer written in AngularJS.
 
+[ ![Codeship Status for double16/switchmin-ng](https://www.codeship.io/projects/9b27dac0-fe1c-0131-66d5-2e3c80ca757b/status)](https://www.codeship.io/projects/29526)
+
 Technical goals of this project:
 - Only client side technologies
 - HTML5 only - no plugins such as Flash
