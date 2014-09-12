@@ -2,7 +2,7 @@
 
 var INPUT_IDS = ['x', 'y', 'z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w'];
 
-angular.module('switchminapp.function.controllers', [])
+angular.module('switchminapp.function.controllers', ['switchminapp.services'])
   .directive('inputIdValid', function() {
       return {
           require: 'ngModel',
@@ -52,8 +52,8 @@ angular.module('switchminapp.function.controllers', [])
 	}
   })
   
-  .controller('FunctionCtrl', function($scope) {
-      $scope.df = new DigitalFunction('func', 'New function', [ new Input('x', '') ]);
+  .controller('FunctionCtrl', ['$scope', 'dataService', function($scope, dataService) {
+      $scope.df = dataService.functions[0];
       
       $scope.addInput = function() {
           var inputs = $scope.df.getInputs();
@@ -122,7 +122,7 @@ angular.module('switchminapp.function.controllers', [])
           return InputState.permutateStates(inputs).map(function(state) { return state.stringify(inputs) });
       };
       
-  })
+  }])
   
   .controller('InputStateMatrixCtrl', function($scope) {
 	$scope.state = $scope.df.inputStateHolder(new InputState($scope.horizontalInputState).addAll($scope.verticalInputState));

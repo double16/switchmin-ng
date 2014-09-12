@@ -1,9 +1,12 @@
 'use strict';
 
-/* Services */
-
-
-// Demonstrate how to register services
-// In this case it is a simple value service.
 angular.module('switchminapp.services', []).
-  value('version', '0.1');
+  value('version', '0.1').
+  factory('dataService', function() {
+      var functions = [ new DigitalFunction('func', 'New function', [ new Input('x', '') ]) ];
+      console.log('creating dataService')
+      return {
+          functions: functions
+      };
+  })
+;

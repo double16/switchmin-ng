@@ -13,7 +13,8 @@ angular.module('switchminapp', [
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/about', {templateUrl: 'partials/about.html', activeNav: 'about', controller: 'NavCtrl'});
   $routeProvider.when('/function', {templateUrl: 'partials/function/function.html', activeNav: 'function', controller: 'FunctionCtrl'});
-  $routeProvider.when('/costs', {templateUrl: 'partials/optimizer/costs.html', activeNav: 'costs', controller: 'CostCtrl'});
+  $routeProvider.when('/costs', {templateUrl: 'partials/optimizer/costs.html', activeNav: 'costs', controller: 'CostsCtrl'});
   $routeProvider.when('/realization', {templateUrl: 'partials/realizer/realization.html', activeNav: 'realization', controller: 'RealizationCtrl'});
   $routeProvider.otherwise({redirectTo: '/about'});
-}]);
+}])
+;
