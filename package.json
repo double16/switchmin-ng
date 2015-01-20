@@ -14,17 +14,22 @@
   },
   "devDependencies": {
     "karma": "~0.12",
-    "protractor": "~0.20.1",
+    "protractor": "~1.6",
     "http-server": "^0.6.1",
     "shelljs": "^0.2.6",
-    "karma-junit-reporter": "^0.2.2",
+    "karma-junit-reporter": "~0.2.2",
+    "karma-jasmine": "~0.3.5",
     "karma-phantomjs-launcher": "~0.1",
-    "karma-coverage": "~0.2"
+    "karma-chrome-launcher": "",
+    "karma-firefox-launcher": "",
+    "karma-coverage": "~0.2",
+    "sauce-connect-launcher": "^0.9",
+    "q": "^1"
   },
   "scripts": {
     "postinstall": "bower install",
     "prestart": "npm install",
-    "start": "http-server ./app -a ${IP-localhost} -p ${PORT-8000}",
+    "start": "http-server ./app -a ${IP-localhost} -p ${PORT-8080}",
 
     "pretest": "npm install",
     "test": "node_modules/karma/bin/karma start test/karma.conf.js",

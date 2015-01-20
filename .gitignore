@@ -10,3 +10,4 @@ tmp
 /nbproject/private/
 npm-debug.log
 .c9
+*.log

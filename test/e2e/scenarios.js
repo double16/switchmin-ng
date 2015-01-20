@@ -3,7 +3,10 @@
 /* https://github.com/angular/protractor/blob/master/docs/getting-started.md */
 
 describe('SwitchMin app', function() {
-
+  // beforeEach(function(){
+  //     browser.driver.manage().window().setSize(1024, 768);
+  // });
+  
   browser.get('index.html');
 
   it('should automatically redirect to /about when location hash/fragment is empty', function() {
