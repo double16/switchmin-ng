@@ -5,16 +5,16 @@
 describe('controllers', function(){
   beforeEach(module('switchminapp.controllers'));
 
-
-  it('should ....', inject(function($controller) {
-    //spec body
-    var myCtrl1 = $controller('MyCtrl1', { $scope: {} });
-    expect(myCtrl1).toBeDefined();
+  it('should create NavCtrl', inject(function($controller) {
+    var $scope ={};
+    var ctrl = $controller('NavCtrl', { $scope: $scope, $route: { } });
+    expect(ctrl).toBeDefined();
+    expect($scope.$route).toBeDefined();
   }));
 
-  it('should ....', inject(function($controller) {
-    //spec body
-    var myCtrl2 = $controller('MyCtrl2', { $scope: {} });
-    expect(myCtrl2).toBeDefined();
+  it('should create CostsCtrl', inject(function($controller) {
+    var costsCtrl = $controller('CostsCtrl', { $scope: {} });
+    expect(costsCtrl).toBeDefined();
   }));
+
 });

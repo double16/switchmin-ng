@@ -2,8 +2,12 @@ logs/*
 !.gitkeep
 node_modules/
 bower_components/
+coverage/
+test_out/
 tmp
 .DS_Store
 .idea
-*.log
+/nbproject/private/
+npm-debug.log
 .c9
+*.log
