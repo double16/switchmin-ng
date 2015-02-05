@@ -16,3 +16,5 @@ Tech stack:
 - AngularJS
 - Twitter Bootstrap CSS
 - HTML5 Boilerplate (for browser shims)
+
+Portions of the original application written for Windows using Borland C++ are at http://github.com/double16/switchmin-w32
