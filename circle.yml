@@ -5,6 +5,10 @@ dependencies:
 #    SAUCE_USERNAME:
 #    SAUCE_ACCESS_KEY:
 
+test:
+  post:
+    - cp -r test_out $CIRCLE_TEST_REPORTS/unit
+
 deployment:
   production:
     branch: master
