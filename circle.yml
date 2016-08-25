@@ -1,0 +1,13 @@
+dependencies:
+  pre:
+    - npm install
+#  environment:
+#    SAUCE_USERNAME:
+#    SAUCE_ACCESS_KEY:
+
+deployment:
+  production:
+    branch: master
+    heroku:
+      appname: evening-beach-4950
+
